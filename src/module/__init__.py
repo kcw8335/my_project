@@ -1,0 +1,1 @@
+from .chalearn_lightning_module import ChalearnLightningModule

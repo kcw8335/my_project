@@ -1,0 +1,8 @@
+src/data/
+
+src/outputs/
+
+__pycache__/ 
+*.pyc 
+*.pyo 
+*.pyd

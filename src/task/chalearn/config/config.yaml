@@ -1,0 +1,74 @@
+datamodule:
+  video_dir: ./data/chalearn_first_impression_dataset/frames/
+  audio_dir: ./data/chalearn_first_impression_dataset/pyaudiofeatures_30/
+  text_dir: ./data/chalearn_first_impression_dataset/scripts/bert_embeddings/
+  label_dir:
+    train: ./data/chalearn_first_impression_dataset/annotation/extreme_unfair/annotation_training_1_2.csv
+    valid: ./data/chalearn_first_impression_dataset/annotation/original/annotation_validation.csv
+    test: ./data/chalearn_first_impression_dataset/annotation/original/annotation_test.csv
+  target_list: 
+    - interview
+    - openness
+    - conscientiousness
+    - extraversion
+    - agreeableness
+    - neuroticism
+  frame_count: 30
+  seed: 0
+  text_max_len: 768
+  num_workers: 4
+  batch_size: 64
+
+module:
+  encoder:
+    video_channels:
+      - [3, 8]
+      - [8, 16]
+      - [16, 32]
+      - [32, 64]
+      - [64, 128]
+    video_input_size: 1152
+    video_hidden_size: 512
+    video_num_layers: 2
+    audio_input_size: 68
+    audio_hidden_size: 32
+    audio_num_layers: 2
+    text_input_size: 768
+    text_hidden_size: 256
+  regressor:
+    fusion_hidden_size: 256
+    num_class: 6
+  classifier:
+    fusion_hidden_size: 256
+    num_class: 2
+  
+loss:
+  base_loss_weight: 1.0
+  wd_loss_weight: 0.0
+  l2_loss_weight: 0.0
+  mmd_loss_weight: 0.0
+
+domain_loss:
+  domain_loss_weight: 1.0
+  dann_gamma: 0.0
+
+trainer: 
+  lr_regressor: 1.0e-04
+  lr_classifier: 1.0e-05
+  max_epochs: 1
+  logger: 
+    name: lightning_logs
+
+save_root: ./outputs
+log_dirname: vanilla
+
+callbacks:
+  checkpoint:
+    monitor: valid/pearsoncorrcoef/interview
+    save_top_k: 1
+    mode: max
+
+metric:
+  tau: 0.5
+
+gpus: 0
