@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("C:/Users/kcw83/Desktop/my_project/src")
+sys.path.append("{workspace}/my_project/src")
 
 import yaml
 import logging
