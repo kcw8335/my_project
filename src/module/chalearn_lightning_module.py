@@ -40,9 +40,9 @@ class ChalearnLightningModule(LightningModule):
         text = inputs.get("text", None)
 
         label = batch[1]["target_data"]
-        gender = batch[1]["gender_label"]
+        group = batch[1]["gender_label"]
 
-        return video, audio, text, label, gender
+        return video, audio, text, label, group
 
     def _concat_net_params(self, *net: nn.Module) -> Iterable[nn.Parameter]:
         return chain(*map(lambda x: x.parameters(), net))
