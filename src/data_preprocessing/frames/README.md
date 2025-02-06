@@ -20,3 +20,18 @@ Ensure that you have the correct dataset files before proceeding with the extrac
 ✅ **Frame Extraction Method:** `torchvision.io.read_video()`  
 
 ---
+
+# 📌 Execution files
+
+### **1️⃣ Single-Processing Method** (`make_video_frames_single_processing.ipynb`)
+✅ **Description**:  
+- Uses a **single CPU core** to process video frames sequentially.  
+- Suitable for small datasets but **slower for large-scale video processing**.  
+- Implemented in a **Jupyter Notebook** for easy demonstration and experimentation.
+
+### **2️⃣ Multi-Processing Method (Python Script)** (`make_video_frames_multi_processing.py`)
+✅ **Description**:
+
+- Uses **multiple CPU cores** to process multiple videos in parallel.
+- Significantly faster than the single-processing approach, especially for large datasets.
+- Recommended for real-world applications where speed is critical.
